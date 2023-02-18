@@ -8,7 +8,8 @@ public class Client {
 
         java.util.List<String> extraArgs = new java.util.ArrayList<>();
 
-        try (com.zeroc.Ice.Communicator communicator = com.zeroc.Ice.Util.initialize(args, "config.client",extraArgs)) {
+        try (com.zeroc.Ice.Communicator communicator = com.zeroc.Ice.Util.initialize(args, "config.client",
+                extraArgs)) {
 
             // com.zeroc.Ice.ObjectPrx base =
             // communicator.stringToProxy("SimplePrinter:default -p 10000");
@@ -21,18 +22,25 @@ public class Client {
                 throw new Error("Invalid proxy");
             }
 
-            String localIP = InetAddress.getLocalHost().getHostAddress();
+            String localIP = InetAddress.getLocalHost().getHostName();
             System.out.println("¿Qué numero de la serie fibonacci desea ver?");
             String n = scanner.nextLine();
 
             while (!n.equalsIgnoreCase("exit")) {
-                int number = printer.sequenceFibonacci(Integer.parseInt(n));
-                System.out.println(localIP+": " + number);
-                System.out.println("¿Qué numero de la serie fibonacci desea ver?");
-                n = scanner.nextLine();
+                if (Integer.parseInt(n) >= 0) {
+                    int number = printer.sequenceFibonacci(Integer.parseInt(n));
+                    System.out.println(localIP + ": " + number);
+                    System.out.println("¿Qué numero de la serie fibonacci desea ver?");
+                    n = scanner.nextLine();
+                }else{
+                    System.out.println(localIP+":"+n);
+                    System.out.println(localIP+":"+0);
+                    System.out.println("¿Qué numero de la serie fibonacci desea ver?");
+                    n = scanner.nextLine();                    
+                }
             }
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.err.println(e);
             System.exit(1);
         }
