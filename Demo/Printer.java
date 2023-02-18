@@ -17,7 +17,7 @@ package Demo;
 
 public interface Printer extends com.zeroc.Ice.Object
 {
-    int sequenceFibonacci(int n, com.zeroc.Ice.Current current);
+    int sequenceFibonacci(String n, com.zeroc.Ice.Current current);
 
     /** @hidden */
     static final String[] _iceIds =
@@ -54,8 +54,8 @@ public interface Printer extends com.zeroc.Ice.Object
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
         com.zeroc.Ice.InputStream istr = inS.startReadParams();
-        int iceP_n;
-        iceP_n = istr.readInt();
+        String iceP_n;
+        iceP_n = istr.readString();
         inS.endReadParams();
         int ret = obj.sequenceFibonacci(iceP_n, current);
         com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();

@@ -2,6 +2,6 @@ module Demo
 {
     interface Printer
     {
-        int sequenceFibonacci(int n);
+        int sequenceFibonacci(string n);
     }
 }

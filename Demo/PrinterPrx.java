@@ -17,22 +17,22 @@ package Demo;
 
 public interface PrinterPrx extends com.zeroc.Ice.ObjectPrx
 {
-    default int sequenceFibonacci(int n)
+    default int sequenceFibonacci(String n)
     {
         return sequenceFibonacci(n, com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default int sequenceFibonacci(int n, java.util.Map<String, String> context)
+    default int sequenceFibonacci(String n, java.util.Map<String, String> context)
     {
         return _iceI_sequenceFibonacciAsync(n, context, true).waitForResponse();
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.Integer> sequenceFibonacciAsync(int n)
+    default java.util.concurrent.CompletableFuture<java.lang.Integer> sequenceFibonacciAsync(String n)
     {
         return _iceI_sequenceFibonacciAsync(n, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.Integer> sequenceFibonacciAsync(int n, java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<java.lang.Integer> sequenceFibonacciAsync(String n, java.util.Map<String, String> context)
     {
         return _iceI_sequenceFibonacciAsync(n, context, false);
     }
@@ -44,11 +44,11 @@ public interface PrinterPrx extends com.zeroc.Ice.ObjectPrx
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> _iceI_sequenceFibonacciAsync(int iceP_n, java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> _iceI_sequenceFibonacciAsync(String iceP_n, java.util.Map<String, String> context, boolean sync)
     {
         com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "sequenceFibonacci", null, sync, null);
         f.invoke(true, context, null, ostr -> {
-                     ostr.writeInt(iceP_n);
+                     ostr.writeString(iceP_n);
                  }, istr -> {
                      int ret;
                      ret = istr.readInt();

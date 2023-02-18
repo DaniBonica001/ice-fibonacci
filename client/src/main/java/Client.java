@@ -28,7 +28,7 @@ public class Client {
 
             while (!n.equalsIgnoreCase("exit")) {
                 if (Integer.parseInt(n) >= 0) {
-                    int number = printer.sequenceFibonacci(Integer.parseInt(n));
+                    int number = printer.sequenceFibonacci(localIP + ":" + n);
                     System.out.println(localIP + ": " + number);
                     System.out.println("¿Qué numero de la serie fibonacci desea ver?");
                     n = scanner.nextLine();
