@@ -11,9 +11,7 @@ public class Server
             if(!extraArgs.isEmpty())
             {
                 System.err.println("too many arguments");
-                for(String v:extraArgs){
-                    System.out.println(v);
-                }
+              
             }
             com.zeroc.Ice.ObjectAdapter adapter = communicator.createObjectAdapter("Printer");
             com.zeroc.Ice.Object object = new PrinterI();
