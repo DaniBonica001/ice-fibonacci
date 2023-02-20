@@ -4,14 +4,16 @@ public class PrinterI implements Demo.Printer {
         String[] arr = n.split(":");
         String[] data = sequenceFibonacci(Integer.parseInt(arr[1]), "").split("-");
        
+        int result = Integer.parseInt(data[0]);
+
         System.out.println(
                 "Client: " + arr[0] + "\n"
                 + "Number: " + arr[1] + "\n"
                 + "Sequence: " + data[1] + "\n"
-                + "Result: " + data[0] + "\n"
+                + "Result: " + result + "\n"
                 + "----------------------------------------");
         
-        return Integer.parseInt(data[0]);
+        return result;
     }
 
     private String sequenceFibonacci(int n, String s) {
