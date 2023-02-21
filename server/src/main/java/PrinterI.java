@@ -3,10 +3,7 @@ public class PrinterI implements Demo.Printer {
     public long sequenceFibonacci(String n, com.zeroc.Ice.Current current) {
 
         String[] arr = n.split(":");
-        String[] data = sequenceFibonacci(Integer.parseInt(arr[1]), "").split("-");
-<<<<<<< HEAD
-
-        System.out.println("***********"+data[0]);
+        String[] data = sequenceFibonacci(Integer.parseInt(arr[1]), "").split("-");        
 
         System.out.println(
                 "Client: " + arr[0] + "\n"
@@ -16,19 +13,6 @@ public class PrinterI implements Demo.Printer {
                         + "----------------------------------------");
 
         return Long.parseLong(data[0]);
-=======
-       
-        int result = Integer.parseInt(data[0]);
-
-        System.out.println(
-                "Client: " + arr[0] + "\n"
-                + "Number: " + arr[1] + "\n"
-                + "Sequence: " + data[1] + "\n"
-                + "Result: " + result + "\n"
-                + "----------------------------------------");
-        
-        return result;
->>>>>>> 989d32bf3cc603544b36d88e8b0486ed2d11d0b1
     }
 
     private String sequenceFibonacci(int n, String s) {
@@ -49,8 +33,6 @@ public class PrinterI implements Demo.Printer {
                     n1 = n2; // actualizamos los dos números anteriores 1 1
                     n2 = n3;//1 2
                 }                
-
-                System.out.println("///////"+n3);
 
                 return n3 + "-" + s;
             }
