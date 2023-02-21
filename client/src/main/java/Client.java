@@ -27,17 +27,12 @@ public class Client {
             String n = scanner.nextLine();
 
             while (!n.equalsIgnoreCase("exit")) {
-                if (Integer.parseInt(n) >= 0) {
-                    int number = printer.sequenceFibonacci(localIP + ":" + n);
-                    System.out.println(localIP + ": " + number);
-                    System.out.println("¿Qué numero de la serie fibonacci desea ver?");
-                    n = scanner.nextLine();
-                }else{
-                    System.out.println(localIP+":"+n);
-                    System.out.println(localIP+":"+0);
-                    System.out.println("¿Qué numero de la serie fibonacci desea ver?");
-                    n = scanner.nextLine();                    
-                }
+
+                long number = printer.sequenceFibonacci(localIP + ": " + n);
+                System.out.println(localIP + ":" + number);
+                System.out.println("¿Qué numero de la serie fibonacci desea ver?");
+                n = scanner.nextLine();
+
             }
 
         } catch (Exception e) {
