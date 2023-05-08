@@ -3,6 +3,7 @@
 # "hello" object in the server.
 #
 Printer.Proxy=SimplePrinter:tcp -p 9099
+Chat.Proxy=SimpleChat:tcp -p 9098
 
 #
 # Uncomment to use the WebSocket transports instead.

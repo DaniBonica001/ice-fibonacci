@@ -15,10 +15,17 @@ public class Client {
             // communicator.stringToProxy("SimplePrinter:default -p 10000");
             Demo.PrinterPrx twoway = Demo.PrinterPrx.checkedCast(
                     communicator.propertyToProxy("Printer.Proxy")).ice_twoway().ice_secure(false);
+                    
             // Demo.PrinterPrx printer = Demo.PrinterPrx.checkedCast(base);
             Demo.PrinterPrx printer = twoway.ice_twoway();
 
-            if (printer == null) {
+            Talker.ChatControllerPrx tControllerPrx = Talker.ChatControllerPrx.checkedCast(
+                communicator.propertyToProxy("Chat.Proxy").ice_twoway().ice_secure(false)
+            );
+
+            Talker.ChatControllerPrx chat = tControllerPrx.ice_twoway();
+
+            if (printer == null && chat == null) {
                 throw new Error("Invalid proxy");
             }
 

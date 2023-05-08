@@ -17,7 +17,7 @@ subprojects {
     //
     slice {
         java {
-            files = [file("../Printer.ice")]
+            files = [file("../Printer.ice"),file("../Callback.ice")]
         }
     }
  
@@ -45,5 +45,10 @@ subprojects {
                 "Class-Path": configurations.runtimeClasspath.resolve().collect { it.toURI() }.join(' ')
             )
         }
+    }
+    
+    task copyToLib(type: Copy) {
+        into "${buildDir}/libs"
+        from configurations.runtimeClasspath
     }
 }
