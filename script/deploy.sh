@@ -2,7 +2,7 @@
 
 export PASSWORD="swarch"
 server_id="swarch@xhgrid2"
-path="GabrielSuarez-AlejandroVarela-CallBack"
+path="ArturoDiaz-DanielaBonilla-CallBack"
 
 
 echo "Create folders"
