@@ -1,50 +1,88 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.InetAddress;
+import java.util.concurrent.TimeUnit;
+
+import com.zeroc.Ice.ObjectAdapter;
+import com.zeroc.Ice.ObjectPrx;
+import com.zeroc.Ice.Util;
+
+import Demo.CallbackReceiverPrx;
+import Demo.CallbackSenderPrx;
 
 public class Client {
-    public final static Scanner scanner = new Scanner(System.in);
+    // Communicator
+    static com.zeroc.Ice.Communicator communicator;
 
+    /**
+     * Main method
+     * @param args 
+     */
     public static void main(String[] args) {
-
         java.util.List<String> extraArgs = new java.util.ArrayList<>();
+        communicator = com.zeroc.Ice.Util.initialize(args, "config.client", extraArgs);
+        Demo.CallbackSenderPrx server = serverConfiguration();
+        Demo.CallbackReceiverPrx client = clientConfiguration();
+        if (server == null || client == null)
+            throw new Error("Invalid proxy");
+        runProgram(server, client);
+        communicator.shutdown();
+        communicator.destroy();
+    }
 
-        try (com.zeroc.Ice.Communicator communicator = com.zeroc.Ice.Util.initialize(args, "config.client",
-                extraArgs)) {
-
-            // com.zeroc.Ice.ObjectPrx base =
-            // communicator.stringToProxy("SimplePrinter:default -p 10000");
-            Demo.PrinterPrx twoway = Demo.PrinterPrx.checkedCast(
-                    communicator.propertyToProxy("Printer.Proxy")).ice_twoway().ice_secure(false);
-                    
-            // Demo.PrinterPrx printer = Demo.PrinterPrx.checkedCast(base);
-            Demo.PrinterPrx printer = twoway.ice_twoway();
-
-            Talker.ChatControllerPrx tControllerPrx = Talker.ChatControllerPrx.checkedCast(
-                communicator.propertyToProxy("Chat.Proxy").ice_twoway().ice_secure(false)
-            );
-
-            Talker.ChatControllerPrx chat = tControllerPrx.ice_twoway();
-
-            if (printer == null && chat == null) {
-                throw new Error("Invalid proxy");
+    /**
+     * Method responsible for running the program
+     * @param server 
+     * @param client 
+     */
+    public static void runProgram(CallbackSenderPrx server, CallbackReceiverPrx client) {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            String hostname = InetAddress.getLocalHost().getHostName();
+            System.out.println("Welcome please type a  \n 1. number [Fibonacci] \n 2. list clients [List of all host avaible] \n 3. bc <<msg>> or to <<host:msg>> [Send a particular msg] \n 4. exit ");
+            String message = br.readLine();
+            while (!message.equalsIgnoreCase("exit")) {
+                long startTime = System.nanoTime();
+                server.initiateCallback(client, hostname + ":" + message);
+                showTime(System.nanoTime() - startTime);
+                message =  br.readLine();
             }
-
-            String localIP = InetAddress.getLocalHost().getHostName();
-            System.out.println("¿Qué numero de la serie fibonacci desea ver?");
-            String n = scanner.nextLine();
-
-            while (!n.equalsIgnoreCase("exit")) {
-
-                long number = printer.sequenceFibonacci(localIP + ":" + n);
-                System.out.println(localIP + ":" + number);
-                System.out.println("¿Qué numero de la serie fibonacci desea ver?");
-                n = scanner.nextLine();
-
-            }
-
+            server.initiateCallback(client, hostname + ":" + message); // exit
         } catch (Exception e) {
-            System.err.println(e);
-            System.exit(1);
+            System.out.println(e);
         }
     }
+
+    /**
+     * Method responsible for showing time
+     * @param elapsed time
+     */
+    public static void showTime(long elapsed) {
+        long elapsedMillis = TimeUnit.MILLISECONDS.convert(elapsed, TimeUnit.NANOSECONDS);
+        long elapsedSecs = TimeUnit.SECONDS.convert(elapsed, TimeUnit.NANOSECONDS);
+        System.out.println("Time: " + (elapsedMillis) + " ms, " + (elapsedSecs) + " s");
+    }
+
+    /**
+     * Method responsible for client callback creation
+     * @return client callback
+     */
+    public static Demo.CallbackReceiverPrx clientConfiguration() {
+        ObjectAdapter adapter = communicator.createObjectAdapter("Callback.Client");
+        com.zeroc.Ice.Object obj = new CallbackReceiver();
+        ObjectPrx objectPrx = adapter.add(obj, Util.stringToIdentity("callbackReceiver"));
+        adapter.activate();
+        return Demo.CallbackReceiverPrx.uncheckedCast(objectPrx);
+    }
+
+    /**
+     * Method responsible for server callback creation
+     * @return server callback
+     */
+    public static Demo.CallbackSenderPrx serverConfiguration() {
+        Demo.CallbackSenderPrx twoway = Demo.CallbackSenderPrx
+                .checkedCast(communicator.propertyToProxy("Printer.Proxy")).ice_twoway().ice_secure(false);
+        return twoway.ice_twoway();
+    }
+
 }

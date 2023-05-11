@@ -2,7 +2,7 @@
 
 Project with ICE and distributed programming and making a fibonacci algorithm
 
-We will use Gradle to create our application projects. You must install Gradle before continuing with this tutorial. 
+We will use Gradle to create our application projects. You must install Gradle before continuing with this tutorial.
 
 The main design goals of Ice are:
 

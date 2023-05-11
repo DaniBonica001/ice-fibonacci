@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f78d2fd4-7ac5-4df0-a25c-7efa3e8a03d8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/.gitattributes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/Printer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/PrinterPrx.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/_PrinterPrxI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Printer.ice" beforeDir="false" afterPath="$PROJECT_DIR$/Printer.ice" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/bin/main/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/client/bin/main/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/bin/main/Demo/Printer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/bin/main/Demo/PrinterPrx.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/bin/main/Demo/_PrinterPrxI.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/bin/main/config.client" beforeDir="false" afterPath="$PROJECT_DIR$/client/bin/main/config.client" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/bin/main/slice2java.df.xml" beforeDir="false" afterPath="$PROJECT_DIR$/client/bin/main/slice2java.df.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/resources/config.client" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/resources/config.client" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/bin/main/Demo/Printer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/bin/main/Demo/PrinterPrx.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/bin/main/Demo/_PrinterPrxI.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/bin/main/PrinterI.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/bin/main/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/bin/main/Server.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/bin/main/config.server" beforeDir="false" afterPath="$PROJECT_DIR$/server/bin/main/config.server" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/bin/main/slice2java.df.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/bin/main/slice2java.df.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/PrinterI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/resources/config.server" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/config.server" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ice-fibonacci" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ice-fibonacci" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ice-fibonacci" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2OiGH1LNHYhUdoqc9M4K7bD7vSg" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/carlo/OneDrive/Escritorio/Universidad/ArquiSoft/ice-fibonacci&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="ice-fibonacci [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.ice-fibonacci [build]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f78d2fd4-7ac5-4df0-a25c-7efa3e8a03d8" name="Changes" comment="" />
+      <created>1682035898130</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1682035898130</updated>
+      <workItem from="1682035900176" duration="523000" />
+      <workItem from="1683833303449" duration="2845000" />
+      <workItem from="1683836198747" duration="3685000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

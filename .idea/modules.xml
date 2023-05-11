@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ice-fibonacci.iml" filepath="$PROJECT_DIR$/.idea/modules/ice-fibonacci.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/client/ice-fibonacci.client.iml" filepath="$PROJECT_DIR$/.idea/modules/client/ice-fibonacci.client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/client/ice-fibonacci.client.main.iml" filepath="$PROJECT_DIR$/.idea/modules/client/ice-fibonacci.client.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/client/ice-fibonacci.client.test.iml" filepath="$PROJECT_DIR$/.idea/modules/client/ice-fibonacci.client.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/ice-fibonacci.server.iml" filepath="$PROJECT_DIR$/.idea/modules/server/ice-fibonacci.server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/ice-fibonacci.server.main.iml" filepath="$PROJECT_DIR$/.idea/modules/server/ice-fibonacci.server.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/ice-fibonacci.server.test.iml" filepath="$PROJECT_DIR$/.idea/modules/server/ice-fibonacci.server.test.iml" />
+    </modules>
+  </component>
+</project>
