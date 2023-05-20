@@ -1,12 +1,17 @@
 module Demo
 {
+
+    sequence<string> StringSeq;
+
     interface CallbackReceiver
     {
-        void callback(string message);
+        void printMsg(string s);
     } 
 
-    interface CallbackSender
+    interface ChatManager
     {
-        void initiateCallback(CallbackReceiver* proxy, string message);
+        void subscribe(CallbackReceiver* callback, string hostname);
+
+        void sendMessage(string msg, string hostname);
     }
 }
