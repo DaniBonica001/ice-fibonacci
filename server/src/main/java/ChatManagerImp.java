@@ -117,10 +117,10 @@ public class ChatManagerImp implements Demo.ChatManager{
             int number = Integer.parseInt(split[1].trim());
             callbackPrx.printMsg("Fibonacci of " + number + " is " + sequenceFibonacci(number));
 
-        }else if (msg.toLowerCase().equals("Help")){
+        }else if (msg.toLowerCase().equals("help")){
             initialMsg(callbackPrx);
-        }
-        else {
+        
+        }else {
             callbackPrx.printMsg("Command not recognized");
         }
 
