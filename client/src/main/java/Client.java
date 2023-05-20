@@ -6,7 +6,6 @@ import com.zeroc.Ice.ObjectPrx;
 import com.zeroc.Ice.Util;
 
 import Demo.CallbackReceiverPrx;
-import Demo.CallbackSenderPrx;
 
 public class Client {
 

@@ -3,7 +3,7 @@ import com.zeroc.Ice.Current;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Stream;
+import java.util.stream.*;
 import java.util.stream.Collectors;
 
 public class ChatManagerImp implements Demo.ChatManager{
@@ -37,7 +37,8 @@ public class ChatManagerImp implements Demo.ChatManager{
         new Thread(() -> {
             CallbackReceiverPrx callbackClient = getCallbackPrxClient(hostname);
             if (callbackClient != null){
-                System.out.println("New message " + msg);                
+                System.out.println("New message " + msg);  
+                inputCommands(msg, callbackClient);              
             }
             
         }).start();

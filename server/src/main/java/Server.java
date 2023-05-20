@@ -6,9 +6,10 @@ public class Server {
 
         try (com.zeroc.Ice.Communicator communicator = com.zeroc.Ice.Util.initialize(args, "config.server")) {           
 
-            com.zeroc.Ice.ObjectAdapter adapter = communicator.createObjectAdapter("Service");            
+            com.zeroc.Ice.ObjectAdapter adapter = communicator.createObjectAdapter("Service");     
+                   
             ChatManagerImp chat = new ChatManagerImp();
-            adapter.add(object, com.zeroc.Ice.Util.stringToIdentity("ChatManager"));
+            adapter.add(chat, com.zeroc.Ice.Util.stringToIdentity("ChatManager"));
             adapter.activate();
             communicator.waitForShutdown();
         }
