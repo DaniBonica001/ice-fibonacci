@@ -96,8 +96,8 @@ Server.Proxy = ChatManager: default -p 8000
 Configure el host del servidor en el archivo config.server
 
 ```
-java -jar server.jar
-java -jar client.jar
+java -jar server/build/libs/server.jar
+java -jar client/build/libs/client.jar
 
 ```
 
