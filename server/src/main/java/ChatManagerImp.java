@@ -22,8 +22,8 @@ public class ChatManagerImp implements Demo.ChatManager{
     public void subscribe(CallbackReceiverPrx callback, String hostname,Current current){
         System.out.println(hostname + " subscribe");
         if (!isSubscribe(hostname)){
-            clients.add(new Client(callback,hostname));
-            
+            clients.add(new Client(callback,hostname));            
+            initialMsg(callback);            
         }
     }
 
@@ -40,7 +40,7 @@ public class ChatManagerImp implements Demo.ChatManager{
         new Thread(() -> {
             CallbackReceiverPrx callbackClient = getCallbackPrxClient(hostname);
             if (callbackClient != null){
-                System.out.println("New message " + msg);  
+                System.out.println("New message " + msg + "\n");  
                 inputCommands(msg, callbackClient);              
             }
             
@@ -55,10 +55,10 @@ public class ChatManagerImp implements Demo.ChatManager{
         .collect(Collectors.toList());
         
         if (found.size() != 0){
-            System.out.println("CallbackPrx of the " + hostname + " was found");
+            System.out.println("CallbackPrx of the " + hostname + " was found\n");
             return found.get(0).getClientProxy();
         }
-        System.out.println("CallbackPrx of the " + hostname + " wasn't found");
+        System.out.println("CallbackPrx of the " + hostname + " wasn't found\n");
         return null;
 
     }
@@ -117,18 +117,23 @@ public class ChatManagerImp implements Demo.ChatManager{
             int number = Integer.parseInt(split[1].trim());
             callbackPrx.printMsg("Fibonacci of " + number + " is " + sequenceFibonacci(number));
 
-        }else if (msg.toLowerCase().equals("help")) {
-            callbackPrx.printMsg("BC <msg> : envia un mensaje a todos los clientes conectados");
-            callbackPrx.printMsg("List clients : lista los clientes conectados");
-            callbackPrx.printMsg("To <hostname>:<msg> : envia un mensaje a un cliente especifico");
-            callbackPrx.printMsg("Fibonacci: <numero> : retorna la serie de fibonacci hasta <numero>");
-            callbackPrx.printMsg("Help : para ver los comandos que puede ingresar");
-
-        }else {
+        }else if (msg.toLowerCase().equals("Help")){
+            initialMsg(callbackPrx);
+        }
+        else {
             callbackPrx.printMsg("Command not recognized");
         }
 
+    }
 
+    public void initialMsg(CallbackReceiverPrx callbackPrx){
+        callbackPrx.printMsg("Commands: \n"
+        + "BC <msg> : envia un mensaje a todos los clientes conectados\n"
+        + "List clients : lista los clientes conectados\n"
+        + "To <hostname>:<msg> : envia un mensaje a un cliente especifico\n"
+        + "Fibonacci: <numero> : retorna la serie de fibonacci hasta <numero>\n"
+        + "Help : para ver los comandos que puede ingresar\n"
+        + "Exit : para salir del programa");
     }
 
     public long sequenceFibonacci(int number) {

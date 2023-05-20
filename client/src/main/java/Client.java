@@ -27,10 +27,11 @@ public class Client {
                 CallbackReceiverPrx clientPrx = CallbackReceiverPrx.uncheckedCast(proxy);
 
                 serverPrx.subscribe(clientPrx, hostname);
+                           
 
                 Scanner sc = new Scanner(System.in);
                 String x = sc.nextLine();
-                while (!x.equals("exit")) {
+                while (!x.toLowerCase().equals("exit")) {
                     serverPrx.sendMessage(x, hostname);
                     x = sc.nextLine();
                 }
