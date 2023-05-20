@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.stream.*;
 import java.util.stream.Collectors;
 
+import javax.swing.plaf.synth.SynthTextAreaUI;
+
 public class ChatManagerImp implements Demo.ChatManager{
 
     private List<Client> clients;
@@ -21,6 +23,7 @@ public class ChatManagerImp implements Demo.ChatManager{
         System.out.println(hostname + " subscribe");
         if (!isSubscribe(hostname)){
             clients.add(new Client(callback,hostname));
+            
         }
     }
 
@@ -46,9 +49,11 @@ public class ChatManagerImp implements Demo.ChatManager{
     }
 
     private CallbackReceiverPrx getCallbackPrxClient(String hostname){
+        
         List<Client> found = clients.stream()
-        .filter(host -> host.getHostname() == hostname)
+        .filter(host -> host.getHostname().equals(hostname))
         .collect(Collectors.toList());
+        
         if (found.size() != 0){
             System.out.println("CallbackPrx of the " + hostname + " was found");
             return found.get(0).getClientProxy();
