@@ -1,52 +1,35 @@
 # ice-fibonacci
 
-Project with ICE and distributed programming and making a fibonacci algorithm
+Project with ICE: distributed programming, making a fibonacci algorithm and implementing Callback design pattern
 
-We will use Gradle to create our application projects. You must install Gradle before continuing with this tutorial.
-
-The main design goals of Ice are:
-
-* Provide an object-oriented RPC framework suitable for use in heterogeneous environments.
-* Provide a full set of features that support development of realistic distributed applications for a wide variety of domains.
-* Avoid unnecessary complexity, making the platform easy to learn and to use.
-* Provide an implementation that is efficient in network bandwidth, memory use, and CPU overhead.
-* Provide an implementation that has built-in security, making it suitable for use over insecure public networks
+# Integrantes 📋
+- Daniela Bonilla Cáceres
+- Carlos Arturo Diaz Artiaga
 
 # Asignación 📚
 
-1. Modify the client of the helloworld example so that, instead of sending the server a single message from the client, it asks for it by console in a cycle. To this message, the client must prefix the logged username (whoami) and hostname of the client machine with a colon (":").
+## Parte 1
+Implementar en bash o un esquema sencillo (e.g., escribiendo a un archivo) que permita :
+- Determinar el número de clientes tales que, al hacer el envío de sus mensajes al mismo tiempo para calcular la serie de fibonacci de números grandes, empieza a aparecer la excepción de timeout.
+- Evidenciar cómo responde el server cuando muchos clientes envían mensajes al mismo tiempo con números enteros grandes (i.e., hay o no hay concurrencia).
 
-2. If the message is a positive integer, the server must print in its console the numbers of the Fibonacci(n) series preceded by the username/hostname of the client that sent the message, where n is the received integer, and return the last calculated value. Otherwise, it should simply print the message received and return 0. (fib(1)=1, fib(2)=1)
+## Parte 2
+Modificar el server:
 
-3. Repeat until the message typed is "exit".
+1. Con multihilos para que pueda responder a múltiples solicitudes de distintos clientes, concurrentemente. Esta concurrencia es virtual o es real? cómo puede evidenciarlo? adjunte un screenshot de la prueba.
+2. Responda, con esta nueva versión, los dos puntos de la Parte I.
+3. Para que permita a un cliente "registrarse", con el hostname y lo necesario para que le hagan callback.
+4. En cuanto a los mensajes, si el mensaje recibido:
 
+    a. Empieza con **"List clients"**, debe retornar la lista de los clientes (hostnames o su prefijo) registrados en el server.
 
+    b. Empieza con **"To X:"**, debe enviar lo que sigue del mensaje a X, donde X es el hostname (o su prefijo) destino.
 
-# Configuration 👓
+    c. Empieza con **"BC"** (broadcast), el mensaje debe devolverlo el server a TODOS los clientes registrados en él.
 
-For this demo we're going to use a project with two sub-projects to build the Client and Server applications. The requirements for our sub-projects are the same so we'll do all the setup in the subprojects block of the root project, which applies to all sub-projects. Edit the generated build.gradle file to look like the one below:
+# Configuración de la IP del servidor 🖥️
 
-```Slice
-...
-
-"Class-Path": configurations.runtimeClasspath.resolve().collect { it.toURI() }.join(' ')
-...
-
-```
-
-We must also edit the generated settings.gradle to define our sub-projects:
-
-```
-rootProject.name = 'printer'
-include 'client'
-include 'server'
-```
-
-​
-
-# Configuration the IP address of the server 🖥️
-
-In order to be able to run our program on remote computers, there are 2 files that we must modify: **config.server and config.client**. This in order to put the IP address of the computer that will be the Server in the **Ice.Default.Host** attribute. If the attribute **Ice.Default.Host=localhost**, the program will run locally.
+Para poder ejecutar nuestro programa en ordenadores remotos, hay 2 archivos que debemos modificar: **config.server y config.client**. Esto con el fin de poner la dirección IP de la computadora que será el Servidor en el atributo **Ice.Default.Host**. Si el atributo **Ice.Default.Host=localhost**, el programa se ejecutará localmente.
 
 ### server/src/main/resources/config.server ###
 
@@ -56,12 +39,18 @@ In order to be able to run our program on remote computers, there are 2 files th
 # "Hello". The following line sets the endpoints for this
 # adapter.
 #
-Printer.Endpoints=tcp -p 9099
+# Printer.Endpoints=tcp -p 9099
 #
 # Only listen on the ZeroTier's LIASOn1 interface by default.
+# 10.147.19.157 - xhgrid1
+# 10.147.19.34 - xhgrid3
+# 10.147.19.26 - xhgrid4
 #
-#Ice.Default.Host=10.147.19.157
-Ice.Default.Host=localhost
+#Ice.Default.Host=localhost
+
+Ice.Default.Host=10.147.19.157
+Service.Endpoints = default -p 8000
+Ice.ThreadPool.Server.Size=3
 
 ```
 
@@ -72,19 +61,29 @@ Ice.Default.Host=localhost
 # The client reads this property to create the reference to the
 # "hello" object in the server.
 #
-Printer.Proxy=SimplePrinter:tcp -p 9099
+# Printer.Proxy=SimplePrinter:tcp -p 9099
+
 #
 # Uncomment to use the WebSocket transports instead.
 #
 #Hello.Proxy=hello:ws -p 10002:udp -p 10000:wss -p 10003
+
+
 # Only listen on the ZeroTier's LIASOn1 interface by default.
-#
-#Ice.Default.Host=10.147.19.157
-Ice.Default.Host=localhost
+# 10.147.19.157 - xhgrid1
+# 10.147.19.34 - xhgrid3
+# 10.147.19.26 - xhgrid4
+
+Ice.Default.Host=10.147.19.157
+#Ice.Default.Host=localhost
+
+#Callback
+CallbackReceiver.Endpoints = tcp -h hgrid3 -p 10008
+Server.Proxy = ChatManager: default -p 8000
 
 ```
 
-# Compiling the client and server ⭐️
+# Compilar el cliente y el servidor ⭐️
 
 ```Console
 
@@ -92,13 +91,13 @@ Ice.Default.Host=localhost
 
 ```
 
-# Run the java jars to execute the program 🎇
+# Ejecutar los .jar para ejecutar el programa 🎇
 
-Configure the host of the server in the config.server file
+Configure el host del servidor en el archivo config.server
 
 ```
 java -jar server/build/libs/server.jar
 java -jar client/build/libs/client.jar
+
 ```
 
-The client runs and exits without producing any output; however, in the server windo
