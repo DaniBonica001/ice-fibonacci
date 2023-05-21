@@ -8,53 +8,49 @@ import java.util.stream.Collectors;
 
 import javax.swing.plaf.synth.SynthTextAreaUI;
 
-public class ChatManagerImp implements Demo.ChatManager{
+public class ChatManagerImp implements Demo.ChatManager {
 
     private List<Client> clients;
-    
-    
-    public ChatManagerImp(){
+
+    public ChatManagerImp() {
         clients = new ArrayList<>();
 
     }
 
     @Override
-    public void subscribe(CallbackReceiverPrx callback, String hostname,Current current){
+    public void subscribe(CallbackReceiverPrx callback, String hostname, Current current) {
         System.out.println(hostname + " subscribe");
-        if (!isSubscribe(hostname)){
-            clients.add(new Client(callback,hostname));            
-            initialMsg(callback);            
+        if (!isSubscribe(hostname)) {
+            clients.add(new Client(callback, hostname));
+            initialMsg(callback);
         }
     }
 
-    private boolean isSubscribe(String hostname){
+    private boolean isSubscribe(String hostname) {
         List<Client> found = clients.stream()
-        .filter(host -> host.getHostname() == hostname)
-        .collect(Collectors.toList());
-        //If found != 0 it's because the hostname is already subscribe
+                .filter(host -> host.getHostname() == hostname)
+                .collect(Collectors.toList());
+        // If found != 0 it's because the hostname is already subscribe
         return found.size() != 0;
     }
 
     @Override
-    public void sendMessage(String msg, String hostname, Current current){
-        new Thread(() -> {
-            CallbackReceiverPrx callbackClient = getCallbackPrxClient(hostname);
-            if (callbackClient != null){
-                System.out.println("New message " + msg + "\n");  
-                inputCommands(msg, callbackClient);              
-            }
-            
-        }).start();
+    public void sendMessage(String msg, String hostname, Current current) {
+        CallbackReceiverPrx callbackClient = getCallbackPrxClient(hostname);
+        if (callbackClient != null) {
+            System.out.println("New message " + msg + "\n");
+            inputCommands(msg, callbackClient);
+        }
 
     }
 
-    private CallbackReceiverPrx getCallbackPrxClient(String hostname){
-        
+    private CallbackReceiverPrx getCallbackPrxClient(String hostname) {
+
         List<Client> found = clients.stream()
-        .filter(host -> host.getHostname().equals(hostname))
-        .collect(Collectors.toList());
-        
-        if (found.size() != 0){
+                .filter(host -> host.getHostname().equals(hostname))
+                .collect(Collectors.toList());
+
+        if (found.size() != 0) {
             System.out.println("CallbackPrx of the " + hostname + " was found\n");
             return found.get(0).getClientProxy();
         }
@@ -63,18 +59,18 @@ public class ChatManagerImp implements Demo.ChatManager{
 
     }
 
-    public void getClients(CallbackReceiverPrx callbackReceiverPrx){
+    public void getClients(CallbackReceiverPrx callbackReceiverPrx) {
         String clientsList = "";
-        for (Client client : clients){
+        for (Client client : clients) {
             clientsList += client.getHostname() + "\n";
         }
         callbackReceiverPrx.printMsg(clientsList);
     }
 
-    public boolean sendTo(String hostname, String msg){
+    public boolean sendTo(String hostname, String msg) {
         boolean sended = false;
         boolean subscribe = isSubscribe(hostname);
-        if (subscribe){
+        if (subscribe) {
             CallbackReceiverPrx callbackClient = getCallbackPrxClient(hostname);
             callbackClient.printMsg(msg);
             sended = true;
@@ -82,71 +78,73 @@ public class ChatManagerImp implements Demo.ChatManager{
         return sended;
     }
 
-    public void broadcast(String msg){
+    public void broadcast(String msg) {
         clients.stream()
-        .forEach((client) -> {
-            client.getClientProxy().printMsg(msg);
-        });
+                .forEach((client) -> {
+                    client.getClientProxy().printMsg(msg);
+                });
     }
 
-    public void inputCommands(String msg, CallbackReceiverPrx callbackPrx){
+    public void inputCommands(String msg, CallbackReceiverPrx callbackPrx) {
 
-        //If input starts with BC
-        if(msg.startsWith("BC")){
+        // If input starts with BC
+        if (msg.startsWith("BC")) {
             broadcast(msg.split("BC ")[1]);
 
-        //If input starts with To
-        }else if (msg.startsWith("To") && msg.contains(":")){
+            // If input starts with To
+        } else if (msg.startsWith("To") && msg.contains(":")) {
             String[] split = msg.split("To ");
             String hostname = split[1].split(":")[0];
             String message = split[1].split(":")[1];
-            
-            if (sendTo(hostname, msg)){
-                callbackPrx.printMsg("Message sended to " + hostname);
-            }else{
-                callbackPrx.printMsg("Message wasn't sended to " + hostname);
-            }           
 
-        //If input starts with List clients
-        }else if (msg.startsWith("List clients")){
+            if (sendTo(hostname, msg)) {
+                callbackPrx.printMsg("Message sended to " + hostname);
+            } else {
+                callbackPrx.printMsg("Message wasn't sended to " + hostname);
+            }
+
+            // If input starts with List clients
+        } else if (msg.startsWith("List clients")) {
             getClients(callbackPrx);
-        
-            //If input starts with Fibonacci
-        }else if (msg.startsWith("Fibonacci: ")){
+
+            // If input starts with Fibonacci
+        } else if (msg.startsWith("Fibonacci: ")) {
             String[] split = msg.split("Fibonacci: ");
             int number = Integer.parseInt(split[1].trim());
-            callbackPrx.printMsg("Fibonacci of " + number + " is " + sequenceFibonacci(number));
+            try {
+                callbackPrx.printMsg("Fibonacci of " + number + " is " + sequenceFibonacci(number));
+            } catch (Exception e) {
+                System.out.println("Excepcion: " + e.getMessage());
+                callbackPrx.printMsg("Error: " + e.getMessage());
+            }
 
-        }else if (msg.toLowerCase().equals("help")){
+        } else if (msg.toLowerCase().equals("help")) {
             initialMsg(callbackPrx);
-        
-        }else {
+
+        } else {
             callbackPrx.printMsg("Command not recognized");
         }
 
     }
 
-    public void initialMsg(CallbackReceiverPrx callbackPrx){
+    public void initialMsg(CallbackReceiverPrx callbackPrx) {
         callbackPrx.printMsg("Commands: \n"
-        + "BC <msg> : envia un mensaje a todos los clientes conectados\n"
-        + "List clients : lista los clientes conectados\n"
-        + "To <hostname>:<msg> : envia un mensaje a un cliente especifico\n"
-        + "Fibonacci: <numero> : retorna la serie de fibonacci hasta <numero>\n"
-        + "Help : para ver los comandos que puede ingresar\n"
-        + "Exit : para salir del programa");
+                + "BC <msg> : envia un mensaje a todos los clientes conectados\n"
+                + "List clients : lista los clientes conectados\n"
+                + "To <hostname>:<msg> : envia un mensaje a un cliente especifico\n"
+                + "Fibonacci: <numero> : retorna la serie de fibonacci hasta <numero>\n"
+                + "Help : para ver los comandos que puede ingresar\n"
+                + "Exit : para salir del programa");
     }
 
-    
-    public int sequenceFibonacci(int number){
-        if (number == 0){
+    public int sequenceFibonacci(int number) {
+        if (number == 0) {
             return 0;
-        }else if (number == 1){
+        } else if (number == 1) {
             return 1;
-        }else{
+        } else {
             return sequenceFibonacci(number - 1) + sequenceFibonacci(number - 2);
         }
     }
 
-   
-    
 }
