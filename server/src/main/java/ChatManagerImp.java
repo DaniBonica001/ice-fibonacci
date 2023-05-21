@@ -115,9 +115,13 @@ public class ChatManagerImp implements Demo.ChatManager{
         }else if (msg.startsWith("Fibonacci: ")){
             String[] split = msg.split("Fibonacci: ");
             int number = Integer.parseInt(split[1].trim());
-            callbackPrx.printMsg("Fibonacci of " + number + " is " + sequenceFibonacci(number));
-
-        }else if (msg.toLowerCase().equals("help")){
+            try {
+                callbackPrx.printMsg("Fibonacci of " + number + " is " + sequenceFibonacci(number));
+            } catch (Exception e) {
+                System.out.println("Excepcion: " + e.getMessage());
+                callbackPrx.printMsg("Error: " + e.getMessage());
+            }
+        }else if (msg.equalsIgnoreCase("help")){
             initialMsg(callbackPrx);
         
         }else {
