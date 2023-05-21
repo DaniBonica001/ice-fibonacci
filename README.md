@@ -97,10 +97,10 @@ java -jar client/build/libs/client.jar
 
 ```
 # Mensajes que el Cliente puede enviar 📨
-- BC <msg> : envia un mensaje a todos los clientes conectados
+- BC (msg) : envia un mensaje a todos los clientes conectados
 - List clients : lista los clientes conectados
-- To <hostname>:<msg> : envia un mensaje a un cliente especifico
-- Fibonacci: <numero> : retorna la serie de fibonacci hasta <numero>
+- To (hostname):(msg) : envia un mensaje a un cliente especifico
+- Fibonacci: (numero) : retorna la serie de fibonacci hasta <numero>
 - Help : para ver los comandos que puede ingresar
 - Exit : para salir del programa
 
