@@ -13,23 +13,9 @@ Implementar en bash o un esquema sencillo (e.g., escribiendo a un archivo) que p
 - Determinar el número de clientes tales que, al hacer el envío de sus mensajes al mismo tiempo para calcular la serie de fibonacci de números grandes, empieza a aparecer la excepción de timeout.
 - Evidenciar cómo responde el server cuando muchos clientes envían mensajes al mismo tiempo con números enteros grandes (i.e., hay o no hay concurrencia).
 
-## Parte 2
-Modificar el server:
-
-1. Con multihilos para que pueda responder a múltiples solicitudes de distintos clientes, concurrentemente. Esta concurrencia es virtual o es real? cómo puede evidenciarlo? adjunte un screenshot de la prueba.
-2. Responda, con esta nueva versión, los dos puntos de la Parte I.
-3. Para que permita a un cliente "registrarse", con el hostname y lo necesario para que le hagan callback.
-4. En cuanto a los mensajes, si el mensaje recibido:
-
-    a. Empieza con **"List clients"**, debe retornar la lista de los clientes (hostnames o su prefijo) registrados en el server.
-
-    b. Empieza con **"To X:"**, debe enviar lo que sigue del mensaje a X, donde X es el hostname (o su prefijo) destino.
-
-    c. Empieza con **"BC"** (broadcast), el mensaje debe devolverlo el server a TODOS los clientes registrados en él.
-
 # Configuración de la IP del servidor 🖥️
 
-Para poder ejecutar nuestro programa en ordenadores remotos, hay 2 archivos que debemos modificar: **config.server y config.client**. Esto con el fin de poner la dirección IP de la computadora que será el Servidor en el atributo **Ice.Default.Host**. Si el atributo **Ice.Default.Host=localhost**, el programa se ejecutará localmente.
+Para poder ejecutar nuestro programa en ordenadores remotos, hay 2 archivos que debemos modificar: **config.server y config.client**. Esto con el fin de poner la dirección IP de la computadora que será el Servidor en el atributo **Ice.Default.Host**. Si el atributo **Ice.Default.Host=localhost**, y en el atributo **CallbackReceiver.Endpoints = tcp -h hgrid3 -p 10008** del **config.client** se reemplaza hgrid3 por localhost, el programa se ejecutará localmente.
 
 ### server/src/main/resources/config.server ###
 
@@ -50,7 +36,7 @@ Para poder ejecutar nuestro programa en ordenadores remotos, hay 2 archivos que 
 
 Ice.Default.Host=10.147.19.157
 Service.Endpoints = default -p 8000
-Ice.ThreadPool.Server.Size=3
+Ice.ThreadPool.Server.Size=1
 
 ```
 
@@ -84,20 +70,20 @@ Server.Proxy = ChatManager: default -p 8000
 ```
 
 # Compilar el cliente y el servidor ⭐️
+Implementamos un script que se encarga de hacer gradle build y enviar los archivos .jar a los computadores. Para ejecutar el script solo debes ejecutar el siguiente comando:
 
 ```Console
 
-./gradlew build
+./deploy.sh
 
 ```
 
 # Ejecutar los .jar para ejecutar el programa 🎇
 
-Configure el host del servidor en el archivo config.server
-
+Ya que nuestro script se encarga de solo enviar los archivos .jar, se ejecutan con los siguientes comandos:
 ```
-java -jar server/build/libs/server.jar
-java -jar client/build/libs/client.jar
+java -jar server.jar
+java -jar client.jar
 
 ```
 
