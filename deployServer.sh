@@ -5,4 +5,3 @@ path="ArturoDiaz-DanielaBonilla-CallBack_Server"
 sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no swarch@"$server_id" "if [ -d $path ]; then echo 'Folder exists'; else mkdir $path; fi"
 echo "Send Jar Server"
 sshpass -p ${PASSWORD} scp -o StrictHostKeyChecking=no ./server/build/libs/server.jar swarch@"$server_id":./$path
-cd ../

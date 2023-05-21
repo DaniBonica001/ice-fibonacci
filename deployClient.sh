@@ -1,7 +1,7 @@
 #!/bin/bash
 export PASSWORD="swarch"
 path="ArturoDiaz-DanielaBonilla-CallBack_Client"
-exec 3<"./host.txt"
+exec 3<"host.txt"
 while read -u 3 line; do
     ip=$(echo "$line" | awk '{print $1}')
     name=$(echo "$line" | awk '{print $2}')
