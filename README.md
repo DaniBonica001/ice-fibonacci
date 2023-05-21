@@ -8,11 +8,6 @@ Project with ICE: distributed programming, making a fibonacci algorithm and impl
 
 # Asignación 📚
 
-## Parte 1
-Implementar en bash o un esquema sencillo (e.g., escribiendo a un archivo) que permita :
-- Determinar el número de clientes tales que, al hacer el envío de sus mensajes al mismo tiempo para calcular la serie de fibonacci de números grandes, empieza a aparecer la excepción de timeout.
-- Evidenciar cómo responde el server cuando muchos clientes envían mensajes al mismo tiempo con números enteros grandes (i.e., hay o no hay concurrencia).
-
 ## Parte 2
 Modificar el server:
 
@@ -29,7 +24,7 @@ Modificar el server:
 
 # Configuración de la IP del servidor 🖥️
 
-Para poder ejecutar nuestro programa en ordenadores remotos, hay 2 archivos que debemos modificar: **config.server y config.client**. Esto con el fin de poner la dirección IP de la computadora que será el Servidor en el atributo **Ice.Default.Host**. Si el atributo **Ice.Default.Host=localhost**, el programa se ejecutará localmente.
+Para poder ejecutar nuestro programa en ordenadores remotos, hay 2 archivos que debemos modificar: config.server y config.client. Esto con el fin de poner la dirección IP de la computadora que será el Servidor en el atributo Ice.Default.Host. Si el atributo Ice.Default.Host=localhost, y en el atributo CallbackReceiver.Endpoints = tcp -h hgrid3 -p 10008 del config.client se reemplaza hgrid3 por localhost, el programa se ejecutará localmente.
 
 ### server/src/main/resources/config.server ###
 
@@ -84,20 +79,28 @@ Server.Proxy = ChatManager: default -p 8000
 ```
 
 # Compilar el cliente y el servidor ⭐️
+Implementamos un script que se encarga de hacer gradle build y enviar los archivos .jar a los computadores. Para ejecutar el script solo debes ejecutar el siguiente comando:
 
 ```Console
 
-./gradlew build
+./deploy.sh
 
 ```
 
 # Ejecutar los .jar para ejecutar el programa 🎇
 
-Configure el host del servidor en el archivo config.server
+Ya que nuestro script se encarga de solo enviar los archivos .jar, se ejecutan con los siguientes comandos:
 
 ```
 java -jar server/build/libs/server.jar
 java -jar client/build/libs/client.jar
 
 ```
+# Mensajes que el Cliente puede enviar 📨
+- BC <msg> : envia un mensaje a todos los clientes conectados
+- List clients : lista los clientes conectados
+- To <hostname>:<msg> : envia un mensaje a un cliente especifico
+- Fibonacci: <numero> : retorna la serie de fibonacci hasta <numero>
+- Help : para ver los comandos que puede ingresar
+- Exit : para salir del programa
 
