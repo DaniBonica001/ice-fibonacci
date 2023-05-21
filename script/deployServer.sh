@@ -1,16 +1,14 @@
 #!/bin/bash
 
-# Configuración del servidor
-SERVER_PORT=9099
+export PASSWORD="swarch"
+server_id="xhgrid1"
+path="ArturoDiaz-DanielaBonilla-CallBack_Server"
 
-# Función para matar el proceso que utiliza el puerto 9099
-function kill_port_9099 {
-    PID=$(lsof -ti tcp:$SERVER_PORT)
-    if [ -n "$PID" ]; then
-        echo "Matando proceso $PID que utiliza el puerto $SERVER_PORT"
-        kill $PID
-    fi
-}
+# Server automatic configuration
+# Folder Creation
+sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no swarch@"$server_id" "if [ -d $path ]; then echo 'Folder exists'; else mkdir $path; fi"
+# Sending Jar artifact to server node
+echo "Send Jar Server"
+sshpass -p ${PASSWORD} scp -o StrictHostKeyChecking=no ./server/build/libs/server.jar swarch@"$server_id":./$path
 
-echo "Ejecutamos el server"
-sshpass -p swarch ssh -o StrictHostKeyChecking=no "${SERVER_ID}" "cd ${SERVER_PATH} && nohup java -jar server.jar > server.log 2>&1 &"
+cd ../
