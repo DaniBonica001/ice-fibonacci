@@ -136,45 +136,17 @@ public class ChatManagerImp implements Demo.ChatManager{
         + "Exit : para salir del programa");
     }
 
-    public long sequenceFibonacci(int number) {
-
-        String[] data = sequenceFibonacci(number, "").split("-");        
-
-        System.out.println(
-                "----------------------------------------\n"
-                        + "Number: " + number + "\n"
-                        + "Sequence: " + data[1] + "\n"
-                        + "Result: " + data[0] + "\n"
-                        + "----------------------------------------");
-
-        return Long.parseLong(data[0]);
-    }
-
-    private String sequenceFibonacci(int n, String s) {
-        long n1 = 0, n2 = 1, n3 = 0;
-
-        if (n >= 0) {
-            if (n == 0) {
-                return 0 + "-" + 0;
-            }
-            // Base cases return itself 0 and 1
-            else if (n == 1) {
-                return 1 + "-" + 1;
-            } else {
-
-                for (int i = 2; i <= n; i++) {
-                    n3 = n1 + n2; // sumamos los dos números anteriores 1 2 3
-                    s += n3 + " ";//1 2 3 
-                    n1 = n2; // actualizamos los dos números anteriores 1 1
-                    n2 = n3;//1 2
-                }                
-
-                return n3 + "-" + s;
-            }
+    
+    public int sequenceFibonacci(int number){
+        if (number == 0){
+            return 0;
+        }else if (number == 1){
+            return 1;
         }else{
-            return 0 + "-" + n;
+            return sequenceFibonacci(number - 1) + sequenceFibonacci(number - 2);
         }
-
     }
+
+   
     
 }
